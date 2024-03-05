@@ -1,4 +1,4 @@
-# Implementation of quicksort following animation on https://www.youtube.com/watch?v=WprjBK0p6rw
+# Implementation of quick select (Variant of quick sort)
 
 
 def sort_with_pivot(arr, start, end):
@@ -22,16 +22,16 @@ def sort_with_pivot(arr, start, end):
     return arr, index
 
 
-def quicksort(arr, start, end):
-    if  end > start:
-        sorted_arr, new_pivot_index = sort_with_pivot(arr, start, end)
-        left_sorted_arr = quicksort(arr, start, new_pivot_index-1)
-        right_sorted_arr = quicksort(arr, new_pivot_index+1, end)
+def quick_select(arr, start, end, k):
 
-def sort(arr):
-    quicksort(arr, 0, len(arr)-1)
-    return arr
+    sorted_arr, idx = sort_with_pivot(arr, start, end)
+    if idx == k:
+        return arr[idx]
+    elif k < idx:
+        return quick_select(sorted_arr, start, idx-1, k)
+    else:
+        return quick_select(sorted_arr, idx+1, end, k)
 
 
 arr = [3, 2, 0, 1, 5, 8, 7, 6, 9, 4]
-print(sort(arr))
+print(quick_select(arr, 0, len(arr)-1, len(arr)-1))
